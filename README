@@ -1,0 +1,7 @@
+rm -rf node_modules/
+npminstall
+
+
+npm run react-dev
+npm run server-dev
+
