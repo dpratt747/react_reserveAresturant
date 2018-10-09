@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import NavBar from './HeaderComponent/NavBar';
 import { Redirect, withRouter } from 'react-router-dom';
 
 class HomePage extends Component {
@@ -7,7 +6,7 @@ class HomePage extends Component {
     return (
       <html>
         <div>
-          Home pagesdddddddddddddddddddddddddddddddddd
+          Home pagesasdasdasds
         </div>
       </html>
     )

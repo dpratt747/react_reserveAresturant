@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
-import App from '../HomePage';
 import history from '../history';
-import LoginModal from './LoginModal';
+import '../../Styling/Header/navbar.css';
+
 
 class NavBar extends Component {
   constructor() {
@@ -14,8 +13,6 @@ class NavBar extends Component {
     this.returnHome = this.returnHome.bind(this);
     this.loginModal = this.loginModal.bind(this);
   }
-
-
 
   loginModal(){
     console.info('loginModal function called');
@@ -39,18 +36,10 @@ class NavBar extends Component {
     }
 
     return (
-      <main>
-        <header>
-          <ul id="headerButtons">
-            <li className="navLogo" onClick={this.returnHome}>ReserveAResturant</li>
-            <li className="navButton" id="auth" onClick={this.loginModal}>Login | SignOut</li>
+          <ul id="navbar-nav">
+            <li className="nav-item" onClick={this.returnHome}>ReserveASpot</li>
+            <li className="navbar-brand" id="auth">Login | SignOut</li>
           </ul>
-        </header>
-        <LoginModal show={this.state.showModal} handleClose={this.hideModal}>
-          <p>Modal</p>
-          <p>Data</p>
-        </LoginModal>
-      </main>
     )
   }
 }

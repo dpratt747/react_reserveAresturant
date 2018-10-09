@@ -12,6 +12,7 @@ header {
     padding: 0;
 }
 .navLogo{
+    padding-left: 10px;
     float: left;
     display: block;
     color: white;

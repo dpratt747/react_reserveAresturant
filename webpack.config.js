@@ -1,20 +1,23 @@
 const path = require('path');
 const SRC_DIR = path.join(__dirname, '/react-client/src');
 const DIST_DIR = path.join(__dirname, '/react-client/dist');
-const webpack = require('webpack');
+const Webpack = require('webpack');
+
 module.exports = {
   entry: `${SRC_DIR}/index.jsx`,
   output: {
     path: DIST_DIR,
     filename: 'bundle.js',
   },
-  watch: true,
+  devServer: {
+    contentBase: DIST_DIR
+  },
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.css']
   },
   module : {
     rules : [
-      {
+        {
         test: /\.css$/,
         loader: 'style-loader!css-loader'
       },
@@ -37,8 +40,8 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
+    new Webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production'),
     })
   ]
 };
