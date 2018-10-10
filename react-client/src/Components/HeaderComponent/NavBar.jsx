@@ -1,47 +1,45 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import history from '../history';
-import '../../Styling/Header/navbar.css';
-
+import Logo from '../../Resources/logo.png'
 
 class NavBar extends Component {
-  constructor() {
-    super();
-    this.state = {
-      toHome: false,
-      showModal: false
-    };
-    this.returnHome = this.returnHome.bind(this);
-    this.loginModal = this.loginModal.bind(this);
-  }
 
-  loginModal(){
-    console.info('loginModal function called');
-    this.setState({
-      showModal: true      
-    });
-  } 
-  returnHome() {
-    console.info('returnHome function called');
-    // this.setState({
-    //   showModal: true      
-    // });
-    history.push('/');
-  }
-  render() {
-    if (this.state.toHome === true) {
-      history.push('/');
-    }
-    if (this.state.toLogin === true) {
-      history.push('/login');
+    static isLoggedIn() {
+        return false
     }
 
-    return (
-          <ul id="navbar-nav">
-            <li className="nav-item" onClick={this.returnHome}>ReserveASpot</li>
-            <li className="navbar-brand" id="auth">Login | SignOut</li>
-          </ul>
-    )
-  }
+    loggedIn(){
+        return <li className="nav-item">
+                            <a className="nav-link">Signup</a>
+                        </li>;
+    }
+
+    static returnHome() {
+        console.info(NavBar.isLoggedIn());
+        history.push('/');
+    }
+
+    render() {
+        return (
+            <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+                <a className="navbar-brand" onClick={NavBar.returnHome}>
+                    <img src={Logo} width="140" height="44"></img>
+                </a>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse collapsibleNavbar justify-content-end" id="navbarCollapse">
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
+                            <a className="nav-link">Signup</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+        )
+    }
 }
+
 // export default withRouter(NavBar);
 export default NavBar;
