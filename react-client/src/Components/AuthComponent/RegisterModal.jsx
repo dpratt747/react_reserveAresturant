@@ -40,8 +40,15 @@ class RegisterModal extends Component {
         this.setState({emailDuplicate: event.target.value});
     }
 
+    handleSubmit() {
+        const username = this.state.username;
+        const password = this.state.password;
+        // ApiCalls.userLogin(username, password).then()
+        console.info(`state: ${password}`);
+    }
+
     render() {
-        const {username, password} = this.state;
+        const {username, password, passwordDuplicate, email, emailDuplicate} = this.state;
         return (
             <div className="modal fade" id="registerModal" tabIndex="-1" role="dialog"
                  aria-labelledby="registerModalLabel" aria-hidden="true">
@@ -53,38 +60,99 @@ class RegisterModal extends Component {
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
+
                         <div className="modal-body">
-                            <form>
+                            <form className="needs-validation" onSubmit={() => {this.handleSubmit()}} noValidate>
+
                                 <div className="form-group">
                                     <label htmlFor="inputUsername">Username</label>
                                     <input type="text" className="form-control" id="inputUsername"
                                            value={username} onChange={this.updateUsernameState}
-                                           aria-describedby="registrationUsernameInfo" placeholder="Enter Username" required/>
-                                    <small id="registrationUsernameInfo" className="form-text text-muted">You can sign in using
-                                        either the username or email you registered with.
+                                           aria-describedby="registrationUsernameInfo" placeholder="Enter Username"
+                                           required/>
+                                    <small id="registrationUsernameInfo" className="form-text text-muted">Please fill
+                                        this field in with your email.
                                     </small>
                                 </div>
-                                <div className="form-group">
-                                    <label htmlFor="registrationPassword">Password</label>
-                                    <input type="password" className="form-control" id="registrationPassword" value={password}
-                                           onChange={this.updatePasswordState}
-                                           aria-describedby="passwordInfo" placeholder="Enter Password" required/>
-                                    <small id="passwordInfo" className="form-text text-muted">Please enter your password
-                                        in this field.
-                                    </small>
+
+                                {/*emails*/}
+                                <div className="container-fluid row">
+                                    <div className="form-group col-sm-6">
+                                        <label htmlFor="registrationEmail">Email</label>
+                                        <input type="email" className="form-control" id="registrationEmail"
+                                               value={email}
+                                               onChange={this.updateEmailState}
+                                               aria-describedby="emailInfo" placeholder="Enter Email" required/>
+                                        <small id="emailInfo" className="form-text text-muted">Please fill this field
+                                            in with your password.
+                                        </small>
+                                    </div>
+                                    <div className="form-group col-sm-6">
+                                        <label htmlFor="registrationEmailDuplicate">Repeat Email</label>
+                                        <input type="email" className="form-control"
+                                               id="registrationEmailDuplicate"
+                                               value={emailDuplicate}
+                                               onChange={this.updateEmailDuplicateState}
+                                               aria-describedby="emailDuplicateInfo" placeholder="Enter Email"
+                                               required/>
+                                        <small id="emailDuplicateInfo" className="form-text text-muted">Please repeat
+                                            your email in this field.
+                                        </small>
+                                    </div>
                                 </div>
+
+                                {/*password*/}
+                                <div className="container-fluid row">
+                                    <div className="form-group col-sm-6">
+                                        <label htmlFor="registrationPassword">Password</label>
+                                        <input type="password" className="form-control" id="registrationPassword"
+                                               value={password}
+                                               onChange={this.updatePasswordState}
+                                               aria-describedby="passwordInfo" placeholder="Enter Password" required/>
+                                        <small id="passwordInfo" className="form-text text-muted">Please fill this field
+                                            in with your password.
+                                        </small>
+                                    </div>
+                                    <div className="form-group col-sm-6">
+                                        <label htmlFor="registrationPasswordDuplicate">Repeat Password</label>
+                                        <input type="password" className="form-control"
+                                               id="registrationPasswordDuplicate"
+                                               value={passwordDuplicate}
+                                               onChange={this.updatePasswordDuplicateState}
+                                               aria-describedby="passwordDuplicateInfo" placeholder="Enter Password"
+                                               required/>
+                                        <small id="passwordDuplicateInfo" className="form-text text-muted">Please repeat
+                                            your password in this field.
+                                        </small>
+                                    </div>
+                                </div>
+
+                                {/*register button*/}
                                 <div className="form-group font-italic">
-                                    <p style={{fontSize: "14px"}}>
-                                        Don't have an account? <code style={{cursor: "pointer"}} data-dismiss="modal"
-                                        id="closeLogin" data-toggle="modal" data-target="#registerModal">Click here to
-                                        register</code>
-                                    </p>
                                 </div>
-                                <button type="button" onClick={() => {
-                                    this.handleSubmit()
-                                }} className="btn btn-dark btn-block">Log in
+                                <button type="submit" className="btn btn-dark btn-block">Register
                                 </button>
                             </form>
+
+                            <script>
+                                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                                (function() {
+                                window.addEventListener('load', function () {
+                                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                                    const forms = document.getElementsByClassName('needs-validation');
+                                    // Loop over them and prevent submission
+                                    Array.prototype.filter.call(forms, function (form) {
+                                        form.addEventListener('submit', function (event) {
+                                            if (form.checkValidity() === false) {
+                                                event.preventDefault();
+                                                event.stopPropagation();
+                                            }
+                                            form.classList.add('was-validated');
+                                        }, false);
+                                    });
+                                }, false)
+                            })();
+                            </script>
                         </div>
                     </div>
                 </div>

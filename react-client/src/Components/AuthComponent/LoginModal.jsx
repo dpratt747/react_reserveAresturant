@@ -29,7 +29,7 @@ class LoginModal extends Component {
         const username = this.state.username;
         const password = this.state.password;
         // ApiCalls.userLogin(username, password).then()
-        console.info(`state: ${password}`);
+        alert(`password: ${password} and username:${username}`);
     }
 
     render() {
@@ -47,37 +47,56 @@ class LoginModal extends Component {
                             </button>
                         </div>
                         <div className="modal-body">
-                            <form>
+                            <form className="needs-validation" noValidate onSubmit={() => {this.handleSubmit()}}>
                                 <div className="form-group">
                                     <label htmlFor="inputUsernameOrEmail">Username</label>
                                     <input type="text" className="form-control" id="inputUsernameOrEmail"
                                            value={username} onChange={this.updateUsernameState}
                                            aria-describedby="usernameInfo" placeholder="Enter Username" required/>
-                                    <small id="usernameInfo" className="form-text text-muted">You can sign in using
+                                    <div className="invalid-feedback">
+                                        Please sign in using
                                         either the username or email you registered with.
-                                    </small>
+                                    </div>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="inputPassword">Password</label>
                                     <input type="password" className="form-control" id="inputPassword" value={password}
                                            onChange={this.updatePasswordState}
                                            aria-describedby="passwordInfo" placeholder="Enter Password" required/>
-                                    <small id="passwordInfo" className="form-text text-muted">Please enter your password
-                                        in this field.
-                                    </small>
+                                    <div className="invalid-feedback">
+                                        Please enter your password in this field.
+                                    </div>
                                 </div>
                                 <div className="form-group font-italic">
                                     <p style={{fontSize: "14px"}}>
                                         Don't have an account? <code style={{cursor: "pointer"}} data-dismiss="modal"
-                                        id="closeLogin" data-toggle="modal" data-target="#registerModal">Click here to
+                                                                     id="closeLogin" data-toggle="modal"
+                                                                     data-target="#registerModal">Click here to
                                         register</code>
                                     </p>
                                 </div>
-                                <button type="button" onClick={() => {
-                                    this.handleSubmit()
-                                }} className="btn btn-dark btn-block">Log in
+                                <button type="submit" className="btn btn-dark btn-block">Log in
                                 </button>
                             </form>
+                            <script>
+                                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                                (function() {
+                                window.addEventListener('load', function () {
+                                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                                    const forms = document.getElementsByClassName('needs-validation');
+                                    // Loop over them and prevent submission
+                                    Array.prototype.filter.call(forms, function (form) {
+                                        form.addEventListener('submit', function (event) {
+                                            if (form.checkValidity() === false) {
+                                                event.preventDefault();
+                                                event.stopPropagation();
+                                            }
+                                            form.classList.add('was-validated');
+                                        }, false);
+                                    });
+                                }, false)
+                            })();
+                            </script>
                         </div>
                     </div>
                 </div>

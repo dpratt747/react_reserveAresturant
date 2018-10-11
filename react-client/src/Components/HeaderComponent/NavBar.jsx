@@ -27,12 +27,12 @@ class NavBar extends Component {
                     </button>
                     <div className="collapse navbar-collapse collapsibleNavbar justify-content-end" id="navbarCollapse">
                         <ul className="navbar-nav">
-                            {!NavBar.isLoggedIn() && (
-                                <li className="nav-item" data-toggle="modal" data-target="#registerModal"
-                                    style={{cursor: "pointer"}}>
-                                    <a className="nav-link">Register</a>
-                                </li>
-                            )}
+                            {/*{!NavBar.isLoggedIn() && (*/}
+                                {/*<li className="nav-item" data-toggle="modal" data-target="#registerModal"*/}
+                                    {/*style={{cursor: "pointer"}}>*/}
+                                    {/*<a className="nav-link">Register</a>*/}
+                                {/*</li>*/}
+                            {/*)}*/}
                             {!NavBar.isLoggedIn() && (
                                 <li className="nav-item" data-toggle="modal" data-target="#loginModal"
                                     style={{cursor: "pointer"}}>
