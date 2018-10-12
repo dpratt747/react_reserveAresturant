@@ -62,7 +62,9 @@ class RegisterModal extends Component {
                         </div>
 
                         <div className="modal-body">
-                            <form className="needs-validation" onSubmit={() => {this.handleSubmit()}} noValidate>
+                            <form className="needs-validation" onSubmit={() => {
+                                this.handleSubmit()
+                            }} noValidate>
 
                                 <div className="form-group">
                                     <label htmlFor="inputUsername">Username</label>
@@ -70,9 +72,9 @@ class RegisterModal extends Component {
                                            value={username} onChange={this.updateUsernameState}
                                            aria-describedby="registrationUsernameInfo" placeholder="Enter Username"
                                            required/>
-                                    <small id="registrationUsernameInfo" className="form-text text-muted">Please fill
-                                        this field in with your email.
-                                    </small>
+                                    <div className="invalid-feedback col-sm-12 container-fluid">
+                                        Please register using a valid username.
+                                    </div>
                                 </div>
 
                                 {/*emails*/}
@@ -83,9 +85,9 @@ class RegisterModal extends Component {
                                                value={email}
                                                onChange={this.updateEmailState}
                                                aria-describedby="emailInfo" placeholder="Enter Email" required/>
-                                        <small id="emailInfo" className="form-text text-muted">Please fill this field
-                                            in with your password.
-                                        </small>
+                                        <div className="invalid-feedback">
+                                            Please register using a valid email.
+                                        </div>
                                     </div>
                                     <div className="form-group col-sm-6">
                                         <label htmlFor="registrationEmailDuplicate">Repeat Email</label>
@@ -95,9 +97,9 @@ class RegisterModal extends Component {
                                                onChange={this.updateEmailDuplicateState}
                                                aria-describedby="emailDuplicateInfo" placeholder="Enter Email"
                                                required/>
-                                        <small id="emailDuplicateInfo" className="form-text text-muted">Please repeat
-                                            your email in this field.
-                                        </small>
+                                        <div className="invalid-feedback">
+                                            Please ensure both fields match.
+                                        </div>
                                     </div>
                                 </div>
 
@@ -109,9 +111,9 @@ class RegisterModal extends Component {
                                                value={password}
                                                onChange={this.updatePasswordState}
                                                aria-describedby="passwordInfo" placeholder="Enter Password" required/>
-                                        <small id="passwordInfo" className="form-text text-muted">Please fill this field
-                                            in with your password.
-                                        </small>
+                                        <div className="invalid-feedback">
+                                            Please register using a valid password.
+                                        </div>
                                     </div>
                                     <div className="form-group col-sm-6">
                                         <label htmlFor="registrationPasswordDuplicate">Repeat Password</label>
@@ -121,9 +123,9 @@ class RegisterModal extends Component {
                                                onChange={this.updatePasswordDuplicateState}
                                                aria-describedby="passwordDuplicateInfo" placeholder="Enter Password"
                                                required/>
-                                        <small id="passwordDuplicateInfo" className="form-text text-muted">Please repeat
-                                            your password in this field.
-                                        </small>
+                                        <div className="invalid-feedback">
+                                            Please ensure both fields match.
+                                        </div>
                                     </div>
                                 </div>
 
@@ -143,11 +145,32 @@ class RegisterModal extends Component {
                                     // Loop over them and prevent submission
                                     Array.prototype.filter.call(forms, function (form) {
                                         form.addEventListener('submit', function (event) {
+                                            const compareEmail = document.getElementById('registrationEmail').value ===
+                                                document.getElementById('registrationEmailDuplicate').value;
+                                            const comparePassword = document.getElementById('registrationPassword').value ===
+                                                document.getElementById('registrationPasswordDuplicate').value;
+
+                                            if (compareEmail === false || comparePassword === false) {
+                                                if (compareEmail === false){
+                                                    document.getElementById('registrationEmailDuplicate').classList.add("is-invalid");
+                                                } else {
+                                                    document.getElementById('registrationEmailDuplicate').classList.add("is-valid");
+                                                    document.getElementById('registrationEmailDuplicate').classList.remove("is-invalid");
+                                                }
+                                                if (comparePassword === false){
+                                                    document.getElementById('registrationPasswordDuplicate').classList.add("is-invalid");
+                                                } else {
+                                                    document.getElementById('registrationPasswordDuplicate').classList.add("is-valid");
+                                                    document.getElementById('registrationPasswordDuplicate').classList.remove("is-invalid");
+                                                }
+                                                event.preventDefault();
+                                                event.stopPropagation();
+                                            }
                                             if (form.checkValidity() === false) {
                                                 event.preventDefault();
                                                 event.stopPropagation();
                                             }
-                                            form.classList.add('was-validated');
+                                                form.classList.add('was-validated');
                                         }, false);
                                     });
                                 }, false)
