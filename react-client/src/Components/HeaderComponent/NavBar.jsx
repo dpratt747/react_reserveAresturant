@@ -17,9 +17,9 @@ class NavBar extends Component {
     render() {
         return (
             <div>
-                <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+                <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top" style={{height: "50px"}}>
                     <a className="navbar-brand" onClick={NavBar.returnHome} style={{cursor: "pointer"}}>
-                        <img src={Logo} width="140" height="44"></img>
+                        <img src={Logo} width="140" height="44" style={{paddingTop: "5px"}}></img>
                     </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarCollapse">

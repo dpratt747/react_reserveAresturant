@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 import history from '../history';
 import ApiCalls from '../Requests/ApiCalls'
 import RegisterModal from './RegisterModal'
 
 class LoginModal extends Component {
-
     constructor(props) {
         super(props);
 
@@ -28,8 +28,8 @@ class LoginModal extends Component {
     handleSubmit() {
         const username = this.state.username;
         const password = this.state.password;
-        // ApiCalls.userLogin(username, password).then()
-        alert(`password: ${password} and username:${username}`);
+        ApiCalls.userLogin(username, password);
+        alert("login");
     }
 
     render() {
@@ -71,7 +71,7 @@ class LoginModal extends Component {
                                     <p style={{fontSize: "14px"}}>
                                         Don't have an account? <code style={{cursor: "pointer"}} data-dismiss="modal"
                                                                      id="closeLogin" data-toggle="modal"
-                                                                     data-target="#registerModal">Click here to
+                                                                     data-target="#registerModal" >Click here to
                                         register</code>
                                     </p>
                                 </div>
@@ -79,7 +79,7 @@ class LoginModal extends Component {
                                 </button>
                             </form>
                             <script>
-                                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                                {/*Disables form submissions if there are invalid fields*/}
                                 (function() {
                                 window.addEventListener('load', function () {
                                     // Fetch all the forms we want to apply custom Bootstrap validation styles to

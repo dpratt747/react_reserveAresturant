@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ApiCalls from "../Requests/ApiCalls";
 
 class RegisterModal extends Component {
 
@@ -6,11 +7,11 @@ class RegisterModal extends Component {
         super(props);
 
         this.state = {
-            username: '',
-            password: '',
-            passwordDuplicate: '',
-            email: '',
-            emailDuplicate: ''
+            username: undefined,
+            password: undefined,
+            passwordDuplicate: undefined,
+            email: undefined,
+            emailDuplicate: undefined
         };
 
         this.updateUsernameState = this.updateUsernameState.bind(this);
@@ -41,17 +42,21 @@ class RegisterModal extends Component {
     }
 
     handleSubmit() {
-        const username = this.state.username;
-        const password = this.state.password;
-        // ApiCalls.userLogin(username, password).then()
-        console.info(`state: ${password}`);
+        const {username, password, passwordDuplicate, email, emailDuplicate} = this.state;
+        let allowSubmit = (!(password !== passwordDuplicate || email !== emailDuplicate));
+
+        if(allowSubmit === true) {
+            console.log(allowSubmit);
+            ApiCalls.userRegister(username, password, email);
+        }
+            console.log(allowSubmit);
     }
 
     render() {
         const {username, password, passwordDuplicate, email, emailDuplicate} = this.state;
         return (
             <div className="modal fade" id="registerModal" tabIndex="-1" role="dialog"
-                 aria-labelledby="registerModalLabel" aria-hidden="true">
+                 aria-labelledby="registerModalLabel" aria-hidden="true" style={{overflow: "hidden"}}>
                 <div className="modal-dialog-centered modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -170,7 +175,7 @@ class RegisterModal extends Component {
                                                 event.preventDefault();
                                                 event.stopPropagation();
                                             }
-                                                form.classList.add('was-validated');
+                                            form.classList.add('was-validated');
                                         }, false);
                                     });
                                 }, false)
