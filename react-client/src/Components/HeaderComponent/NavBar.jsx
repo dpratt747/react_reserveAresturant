@@ -1,58 +1,62 @@
-import React, { Component } from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
-import App from '../HomePage';
+import React, {Component} from 'react';
 import history from '../history';
-import LoginModal from './LoginModal';
+import Logo from '../../Resources/logo.png'
+import LoginModal from '../AuthComponent/LoginModal'
+import RegisterModal from '../AuthComponent/RegisterModal'
 
 class NavBar extends Component {
-  constructor() {
-    super();
-    this.state = {
-      toHome: false,
-      showModal: false
-    };
-    this.returnHome = this.returnHome.bind(this);
-    this.loginModal = this.loginModal.bind(this);
-  }
 
-
-
-  loginModal(){
-    console.info('loginModal function called');
-    this.setState({
-      showModal: true      
-    });
-  } 
-  returnHome() {
-    console.info('returnHome function called');
-    // this.setState({
-    //   showModal: true      
-    // });
-    history.push('/');
-  }
-  render() {
-    if (this.state.toHome === true) {
-      history.push('/');
-    }
-    if (this.state.toLogin === true) {
-      history.push('/login');
+    static isLoggedIn(value = false) {
+        return value
     }
 
-    return (
-      <main>
-        <header>
-          <ul id="headerButtons">
-            <li className="navLogo" onClick={this.returnHome}>ReserveAResturant</li>
-            <li className="navButton" id="auth" onClick={this.loginModal}>Login | SignOut</li>
-          </ul>
-        </header>
-        <LoginModal show={this.state.showModal} handleClose={this.hideModal}>
-          <p>Modal</p>
-          <p>Data</p>
-        </LoginModal>
-      </main>
-    )
-  }
+    static returnHome() {
+        history.push('/');
+    }
+
+    render() {
+        return (
+            <div>
+                <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top" style={{height: "50px"}}>
+                    <a className="navbar-brand" onClick={NavBar.returnHome} style={{cursor: "pointer"}}>
+                        <img src={Logo} width="140" height="44" style={{paddingTop: "5px"}}></img>
+                    </a>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarCollapse">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse collapsibleNavbar justify-content-end" id="navbarCollapse">
+                        <ul className="navbar-nav">
+                            {/*{!NavBar.isLoggedIn() && (*/}
+                                {/*<li className="nav-item" data-toggle="modal" data-target="#registerModal"*/}
+                                    {/*style={{cursor: "pointer"}}>*/}
+                                    {/*<a className="nav-link">Register</a>*/}
+                                {/*</li>*/}
+                            {/*)}*/}
+                            {!NavBar.isLoggedIn() && (
+                                <li className="nav-item" data-toggle="modal" data-target="#loginModal"
+                                    style={{cursor: "pointer"}}>
+                                    <a className="nav-link">Login</a>
+                                </li>
+                            )}
+                            {NavBar.isLoggedIn() && (
+                                <li className="nav-item" style={{cursor: "pointer"}}>
+                                    <a className="nav-link">Logout</a>
+                                </li>
+                            )}
+                        </ul>
+                    </div>
+                </nav>
+                <div>
+                    <RegisterModal/>
+                </div>
+                <div>
+                    <LoginModal/>
+                </div>
+            </div>
+        )
+    }
 }
+
 // export default withRouter(NavBar);
 export default NavBar;
