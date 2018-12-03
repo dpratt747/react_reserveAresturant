@@ -41,15 +41,12 @@ class RegisterModal extends Component {
         this.setState({emailDuplicate: event.target.value});
     }
 
-    handleSubmit() {
+    async handleSubmit() {
         const {username, password, passwordDuplicate, email, emailDuplicate} = this.state;
         let allowSubmit = (!(password !== passwordDuplicate || email !== emailDuplicate));
-
-        if(allowSubmit === true) {
-            console.log(allowSubmit);
+        if(allowSubmit) {
             ApiCalls.userRegister(username, password, email);
         }
-            console.log(allowSubmit);
     }
 
     render() {
@@ -155,7 +152,7 @@ class RegisterModal extends Component {
                                             const comparePassword = document.getElementById('registrationPassword').value ===
                                                 document.getElementById('registrationPasswordDuplicate').value;
 
-                                            if (compareEmail === false || comparePassword === false) {
+                                            if (compareEmail === false || comparePassword === false) { 
                                                 if (compareEmail === false){
                                                     document.getElementById('registrationEmailDuplicate').classList.add("is-invalid");
                                                 } else {
